@@ -36,21 +36,43 @@ build:
     #FROM my_service+deps
     ARG version
     RUN echo $version > version.txt
-    # Requiere go-1.17
-    #ENV GOOS=darwin
-    #ENV GOARCH=arm64
+
+    ARG TARGETPLATFORM
+    RUN echo $TARGETPLATFORM
+    ARG TARGETOS
+    RUN echo $TARGETOS
+    RUN echo $TARGETARCH
+    RUN echo $TARGETVARIANT
+    #IF [ $TARGETOS == "macos" ]
+    #    ENV GOOS=darwin
+    #    ENV GOARCH=arm64
+    #END
+
+    ARG USERPLATFORM
+    RUN echo $USERPLATFORM
+    ARG USEROS
+    RUN echo $USEROS
+    RUN echo $USERARCH
+    RUN echo $USERVARIANT
+
     COPY main.go ./
-    RUN go build -o build/go-example-$version main.go
-    SAVE ARTIFACT build/go-example-$version /go-example AS LOCAL build/go-example
+    #RUN go build -o build/go-example-$version main.go
+    RUN CGO_ENABLED=0 go build \
+        -installsuffix 'static' \
+        -o ./build/go-calc-$version main.go
+
+    SAVE ARTIFACT build/go-calc-$version /go-calc AS LOCAL build/go-calc
     SAVE ARTIFACT version.txt AS LOCAL build/version.txt
 
 docker:
     FROM scratch # Sin base
     ARG tag='latest'
     BUILD +build # save file
-    COPY +build/go-example .
-    ENTRYPOINT ["/go-example/go-example"]
-    SAVE IMAGE --push mario21ic/go-calc:$tag
+    COPY +build/go-calc /go-example/go-calc
+    ENTRYPOINT ["/go-example/go-calc"]
+    #CMD ["/go-example/go-calc"]
+    SAVE IMAGE mario21ic/go-calc:$tag
+    #SAVE IMAGE --push mario21ic/go-calc:$tag
 
 with-build:
     BUILD +docker --tag='my-new-image-tag'
@@ -62,15 +84,9 @@ with-copy:
     COPY (+build/go-example --version='1.0') .
 
 # Example of docker in docker
-my-hello-world:
-    FROM ubuntu
-    CMD echo 'my hello world'
-    SAVE IMAGE my-hello:latest
-hello:
+test-docker:
     FROM earthly/dind:alpine
-    WITH DOCKER --pull hello-world
-    #WITH DOCKER --load hello:latest=+my-hello-world
-    #WITH DOCKER --load hello-world:latest=+my-hello-world
-        RUN docker run hello-world:latest
+    WITH DOCKER --load mario21ic/go-calc:latest=+docker
+        RUN docker run mario21ic/go-calc:latest
     END
 

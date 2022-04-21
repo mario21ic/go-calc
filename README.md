@@ -15,3 +15,8 @@ Tests:
 ```
 ./run_test.sh lib/math_test.go
 ```
+
+Earthly testing docker:
+```
+earthly -P +test-docker
+```
