@@ -1,0 +1,12 @@
+VERSION 0.6
+
+#FROM golang:1.17-alpine
+FROM scratch
+
+docker:
+    FROM ../+build
+    ARG tag='latest'
+    BUILD +build # save file
+    COPY +build/go-example .
+    ENTRYPOINT ["/go-example/go-example"]
+    SAVE IMAGE --push mario21ic/go-example:$tag

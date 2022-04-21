@@ -2,7 +2,7 @@ package lib
 
 import "fmt"
 
-func PrintHello() {
-    fmt.Println("Hello, Modules! This is mypackage speaking!")
+func PrintHola() {
+    fmt.Println("Hola, Modules! This is ./lib speaking!")
 }
 

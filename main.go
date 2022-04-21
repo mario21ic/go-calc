@@ -3,14 +3,37 @@ package main
 import (
     "fmt"
 
-    //"github.com/mario21ic/lib/hello"
-    "lib/hello"
+    "github.com/mario21ic/go-calc/lib"
+    //"github.com/sirupsen/logrus"
 )
 
+func Cuadrado(x int) int {
+    return x * x
+}
 
 func main() {
     //fmts.Println("hello world") // only for test
-    fmt.Println("hello world")
 
-    lib.PrintHello()
+    // TODO
+    //logrus.Info("Iniciando")
+    fmt.Println("### Go Calc ###")
+    lib.PrintHola()
+
+    a := 6
+    b := 3
+
+    suma := lib.Sumar(a, b)
+    fmt.Println("suma: ", suma)
+
+    resta := lib.Restar(a, b)
+    fmt.Println("resta: ", resta)
+
+    multi := lib.Multiplicar(a, b)
+    fmt.Println("multiplicacion: ", multi)
+
+    div := lib.Dividir(a, b)
+    fmt.Println("division: ", div)
+
+    square := Cuadrado(a)
+    fmt.Println("cuadrado: ", square)
 }
