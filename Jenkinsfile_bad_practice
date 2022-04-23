@@ -34,11 +34,11 @@ pipeline {
     }
 
     stage("Lint") {
+      environment {
+        XDG_CACHE_HOME="/tmp/.cache"
+      }
       steps {
-        sh "id"
-        sh "pwd"
-        sh "ls -la"
-        sh "set XDG_CACHE_HOME=/tmp/.cache"
+        sh "env GOCACHE=${WORKSPACE}"
         sh "go vet ./"
       }
     }
