@@ -47,11 +47,11 @@ pipeline {
       }
     }
 
-    stage("Build") {
-      steps {
-        sh "./build-con-docker.sh"
-      }
-    }
+    //stage("Build") {
+    //  steps {
+    //    sh "./build-con-docker.sh"
+    //  }
+    //}
 
     stage("Docker") {
       //when {
