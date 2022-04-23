@@ -1,3 +1,5 @@
+# NO se usa Makefile sino comandos go
+
 # Building
 FROM golang:1.17-alpine AS builder
 RUN apk --update --no-cache add git gcc
@@ -20,7 +22,7 @@ RUN CGO_ENABLED=0 go build \
     -o ./build/go-calc main.go
 
 
-# Runtime 
+# Runtime
 FROM scratch
 COPY --from=builder /app/build/go-calc /go-calc
 ENTRYPOINT ["/go-calc"]

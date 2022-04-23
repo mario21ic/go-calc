@@ -1,3 +1,5 @@
+# Se usa Makefile para Orquestar Bash Scripts
+
 # Building
 FROM golang:1.17-alpine AS builder
 RUN apk --update --no-cache add git gcc make bash
