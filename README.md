@@ -1,22 +1,23 @@
 # go-calc
 Files to practice golang
 
-Run
+Lint:
 ```
-go run main.go
-```
-
-Build:
-```
-go build -o build/go-calc
+make lint
 ```
 
 Tests:
 ```
-./run_test.sh lib/math_test.go
+make tests
 ```
 
-Earthly testing docker:
+Build:
 ```
-earthly -P +test-docker
+make build
 ```
+
+Docker:
+```
+make docker
+```
+

@@ -4,7 +4,6 @@ import (
     "fmt"
 
     "github.com/mario21ic/go-calc/lib"
-    //"github.com/sirupsen/logrus"
 )
 
 func Cuadrado(x int) int {
@@ -12,10 +11,9 @@ func Cuadrado(x int) int {
 }
 
 func main() {
-    //fmts.Println("hello world") // only for test
+    //fmts.Println("hello world") // only for lint test
 
     // TODO
-    //logrus.Info("Iniciando")
     fmt.Println("### Go Calc ###")
     lib.PrintHola()
 

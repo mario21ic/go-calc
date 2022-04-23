@@ -2,5 +2,5 @@
 
 CGO_ENABLED=0 go build \
     -installsuffix 'static' \
-    -o ./build/go-calc ./
+    -o ./build/go-calc main.go
 
