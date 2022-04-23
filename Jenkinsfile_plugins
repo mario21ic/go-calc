@@ -56,7 +56,8 @@ pipeline {
     }
 
     stage("Docker") {
-      agent any
+      agent { node { label 'master' } }
+
       steps {
         echo "Building for Env ${params.ENV}"
         sh "docker build -t mario21ic/go-calc:${env.BUILD_NUMBER} ."
@@ -64,6 +65,7 @@ pipeline {
     }
 
     stage("Upload") {
+      agent { node { label 'master' } }
       when {
         expression {
           params.DEPLOY ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/
