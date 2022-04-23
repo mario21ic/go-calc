@@ -76,11 +76,7 @@ pipeline {
 
       steps {
         echo "Building for Env ${params.ENV}"
-        sh "hostname"
-        sh "id"
-        sh "pwd"
-        sh "ls -la"
-        sh "docker build -t mario21ic/go-calc:${env.BUILD_NUMBER} ."
+        sh "docker build -t mario21ic/go-calc:${env.BUILD_NUMBER} -f Dockerfile_Sin_Tasks ./"
       }
     }
 
