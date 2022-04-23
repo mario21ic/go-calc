@@ -25,6 +25,12 @@ pipeline {
       }
     }
 
+    stage("Image Build") {
+      steps {
+        sh "./docker-image-build.sh"
+      }
+    }
+
     stage("Deps") {
       steps {
         sh "./deps-con-docker.sh"
