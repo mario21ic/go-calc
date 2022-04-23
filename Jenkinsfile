@@ -46,6 +46,7 @@ pipeline {
         }
       }
       steps {
+          echo "TODO: add docker credentials"
           echo "docker login"
           sh "docker push mario21ic/go-calc:${env.BUILD_NUMBER}"
           echo "docker logout"

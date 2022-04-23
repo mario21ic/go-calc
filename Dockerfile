@@ -1,7 +1,7 @@
 # Building
 FROM golang:1.17-alpine AS builder
 RUN apk --update --no-cache add git gcc make bash
-#FROM golang:1.17 AS builder 
+#FROM golang:1.17 AS builder
 #RUN apt update && apt install -y git gcc make
 WORKDIR /app
 

@@ -58,6 +58,7 @@ func TestDividir(t *testing.T) {
 func TestMultiplicar(t *testing.T) {
     result := lib.Multiplicar(6, 3)
     expected := 18
+    //expected := 19 // test Docker cache
 
     if result!=expected {
             t.Errorf("expected '%d' but got '%d'", expected, result)
