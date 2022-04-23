@@ -7,11 +7,11 @@ lint:
 deps:
 	go mod download
 
-build: deps
-	./build.sh
-
 tests: deps
 	./run_test.sh lib/math_test.go
+
+build: deps
+	./build.sh
 
 docker:
 	./docker-build.sh
