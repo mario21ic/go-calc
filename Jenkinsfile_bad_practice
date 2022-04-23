@@ -35,10 +35,9 @@ pipeline {
 
     stage("Lint") {
       environment {
-        XDG_CACHE_HOME="/tmp/.cache"
+        GOCACHE="${WORKSPACE}"
       }
       steps {
-        sh "env GOCACHE=${WORKSPACE}"
         sh "go vet ./"
       }
     }
