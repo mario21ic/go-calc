@@ -1,11 +1,6 @@
 pipeline {
 
-  agent {
-    docker {
-        image 'golang:1.17-alpine'
-        //args '-v $HOME/.gocache:/tmp/gocache'
-    }
-  }
+  agent none
 
   options {
     ansiColor('xterm') // plugin
@@ -32,31 +27,52 @@ pipeline {
     }
 
     stage("Deps") {
+      agent {
+        docker {
+            image 'golang:1.17-alpine'
+            //args '-v $HOME/.gocache:/tmp/gocache'
+        }
+      }
       steps {
         sh "go mod download"
       }
     }
 
     stage("Lint") {
+      agent {
+        docker {
+            image 'golang:1.17-alpine'
+        }
+      }
       steps {
         sh "go vet ./"
       }
     }
 
     stage("Tests") {
+      agent {
+        docker {
+            image 'golang:1.17-alpine'
+        }
+      }
       steps {
         sh "go test -v lib/math_test.go -coverpkg=./..."
       }
     }
 
     stage("Build") {
+      agent {
+        docker {
+            image 'golang:1.17-alpine'
+        }
+      }
       steps {
         sh "CGO_ENABLED=0 go build -installsuffix 'static' -o ./build/go-calc main.go"
       }
     }
 
     stage("Docker") {
-      agent { label 'master' }
+      agent any
 
       steps {
         echo "Building for Env ${params.ENV}"
