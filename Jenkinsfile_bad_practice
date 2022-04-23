@@ -35,6 +35,9 @@ pipeline {
 
     stage("Lint") {
       steps {
+        sh "id"
+        sh "pwd"
+        sh "ls -la"
         sh "go vet ./"
       }
     }
