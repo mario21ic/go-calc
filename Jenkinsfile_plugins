@@ -85,7 +85,7 @@ pipeline {
     }
 
     stage("Upload") {
-      agent { node { label 'master' } }
+      agent any
       when {
         expression {
           params.DEPLOY ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/
