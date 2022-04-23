@@ -33,7 +33,7 @@ pipeline {
       //  branch 'main'
       //}
       steps {
-        echo "Building for Env ${ENV}"
+        echo "Building for Env ${params.ENV}"
         //sh "make docker ${env.BUILD_NUMBER}"
         sh "./docker-build.sh ${env.BUILD_NUMBER}"
       }
