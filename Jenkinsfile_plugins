@@ -57,7 +57,7 @@ pipeline {
 
     stage("Docker") {
       agent {
-        labels 'master'
+        label 'master'
       }
       steps {
         echo "Building for Env ${params.ENV}"
