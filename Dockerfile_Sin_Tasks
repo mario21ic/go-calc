@@ -1,6 +1,6 @@
 # Building
 FROM golang:1.17-alpine AS builder
-RUN apk --update --no-cache add git make
+RUN apk --update --no-cache add git make bash
 WORKDIR /app
 
 COPY ./ ./
