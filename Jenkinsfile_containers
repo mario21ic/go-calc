@@ -25,11 +25,36 @@ pipeline {
       }
     }
 
+    stage("Deps") {
+      steps {
+        sh "./deps-con-docker.sh"
+      }
+    }
+
+    stage("lint") {
+      steps {
+        sh "./lint-con-docker.sh"
+      }
+    }
+    stage("Tests") {
+      steps {
+        sh "./tests-con-docker.sh"
+      }
+    }
+
+    stage("Build") {
+      steps {
+        sh "./build-con-docker.sh"
+      }
+    }
+
     stage("Docker") {
+      //when {
+      //  branch 'main'
+      //}
       steps {
         echo "Building for Env ${params.ENV}"
         sh "./docker-build.sh ${env.BUILD_NUMBER}"
-        //sh "make docker ${env.BUILD_NUMBER}"
       }
     }
 

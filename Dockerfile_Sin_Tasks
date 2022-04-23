@@ -5,20 +5,13 @@ WORKDIR /app
 
 COPY ./ ./
 
-# deps
+# Deps && Build
 RUN make deps
-
-# lint
-RUN make lint
-
-# tests
-RUN make tests
-
-# build
 RUN make build
 
 
 # Runtime 
 FROM scratch
 COPY --from=builder /app/build/go-calc /go-calc
+#CMD ["/go-calc"]
 ENTRYPOINT ["/go-calc"]

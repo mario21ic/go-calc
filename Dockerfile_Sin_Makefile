@@ -1,0 +1,26 @@
+# Building
+FROM golang:1.17-alpine AS builder
+RUN apk --update --no-cache add git gcc
+WORKDIR /app
+
+COPY ./ ./
+
+# deps
+RUN go mod download
+
+# lint
+RUN go vet ./
+
+# tests
+RUN go test -v lib/math_test.go -coverpkg=./...
+
+# build
+RUN CGO_ENABLED=0 go build \
+    -installsuffix 'static' \
+    -o ./build/go-calc main.go
+
+
+# Runtime 
+FROM scratch
+COPY --from=builder /app/build/go-calc /go-calc
+ENTRYPOINT ["/go-calc"]

@@ -1,6 +1,9 @@
 pipeline {
 
   agent any
+  agent {
+    docker { image 'golang:1.17-alpine' }
+  }
 
   options {
   //  ansiColor('xterm')
@@ -25,11 +28,34 @@ pipeline {
       }
     }
 
+    stage("Deps") {
+      steps {
+        sh "go mod download"
+      }
+    }
+
+    stage("Lint") {
+      steps {
+        sh "got vet ./"
+      }
+    }
+
+    stage("Tests") {
+      steps {
+        sh "go test -v lib/math_test.go -coverpkg=./..."
+      }
+    }
+
+    stage("Build") {
+      steps {
+        sh "CGO_ENABLED=0 go build -installsuffix 'static' -o ./build/go-calc main.go"
+      }
+    }
+
     stage("Docker") {
       steps {
         echo "Building for Env ${params.ENV}"
-        sh "./docker-build.sh ${env.BUILD_NUMBER}"
-        //sh "make docker ${env.BUILD_NUMBER}"
+        sh "docker build -t mario21ic/go-calc:${env.BUILD_NUMBER} ."
       }
     }
 
