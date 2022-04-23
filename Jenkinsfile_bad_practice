@@ -35,7 +35,7 @@ pipeline {
 
     stage("Lint") {
       steps {
-        sh "got vet ./"
+        sh "go vet ./"
       }
     }
 
