@@ -38,6 +38,7 @@ pipeline {
         sh "id"
         sh "pwd"
         sh "ls -la"
+        sh "set XDG_CACHE_HOME=/tmp/.cache"
         sh "go vet ./"
       }
     }
