@@ -17,6 +17,7 @@ pipeline {
   }
 
   environment {
+    GOCACHE="/tmp/gocache"
     SLACK_MESSAGE = "Job '${env.JOB_NAME}' Build ${env.BUILD_NUMBER} URL ${env.BUILD_URL}"
   }
 
@@ -34,9 +35,6 @@ pipeline {
     }
 
     stage("Lint") {
-      environment {
-        GOCACHE="${WORKSPACE}"
-      }
       steps {
         sh "go vet ./"
       }
