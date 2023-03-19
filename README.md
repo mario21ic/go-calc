@@ -55,3 +55,18 @@ Build:
 ```
 ./build-con-docker.sh
 ```
+
+Optional: building docker image with Wolfi OS
+```
+docker build -t mario21ic:go-calc:wolfi -f Dockerfile_wolfi .
+```
+
+Apko:
+```
+docker run -v $PWD:/work cgr.dev/chainguard/apko build apko-go-calc.yaml mario21ic/go-calc:apko go-calc.tar
+```
+
+Melange:
+```
+docker run --privileged -v "$PWD":/work cgr.dev/chainguard/melange build melange-go-calc.yaml
+```

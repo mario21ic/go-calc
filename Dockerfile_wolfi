@@ -1,0 +1,28 @@
+# Se usa Makefile para Orquestar Bash Scripts
+
+# Building
+FROM cgr.dev/chainguard/go AS builder
+#RUN apk --update --no-cache add git gcc make bash
+WORKDIR /app
+
+COPY ./ ./
+
+# deps
+#RUN make deps
+
+# lint
+#RUN make lint
+
+# tests
+#RUN make tests
+
+# build
+#RUN make build
+RUN CGO_ENABLED=0 go build \
+    -installsuffix 'static' \
+    -o ./build/go-calc main.go
+
+# Runtime 
+FROM cgr.dev/chainguard/static
+COPY --from=builder /app/build/go-calc /go-calc
+ENTRYPOINT ["/go-calc"]
